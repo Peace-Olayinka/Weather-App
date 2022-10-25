@@ -1,0 +1,25 @@
+body{
+    height: 100vh;
+    background-image: url(./cloud1.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#box{
+    width: 50%;
+    border: 2px solid black;
+    margin: auto;
+    overflow: hidden;
+}
+@media screen and (max-width:800px) {
+    #box{
+        width: 90%;
+        
+    }
+}
+#mybtn1{
+    margin-left: -3.5em;
+}
+#disp{
+    margin-top: 10em;
+}

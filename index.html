@@ -4,58 +4,94 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asynchronous_programming_Weather</title>
+    <title>Weather App</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
+    <script src="https://use.fontawesome.com/3c538cc85f.js"></script>
 </head>
-<body onload="weatherNow()">
-    <h3 class="text-center mt-5 text-white">Weather Forecast for Today</h3>
-    <div id="box" class="mt-2 d-flex rounded-3">
-        <input type="text" placeholder="Search Location" id="userInp" class="w-100 border border-none p-3 fs-5  rounded-3  ">
-        <button onclick="getLocation()" class=" border border-none rounded-3 fs-5 " id="mybtn1">Search</button>
-    </div> 
+<body onload="getCurrentDetails()">
+    <script src="function.js"></script>
+    <div class="container-fluid">
+        <div class="row px-3">
+            <div class="col-xs-10 col-md-8 col-lg-5 mx-auto my-5 text-center text-white rounded-4 shadow-lg"  id="box1">
+                <div class="col-3 m-auto p-2 rounded-1 top"></div>
+                <div class="row mt-3 px-3">
+                    <span class=" col-10 text-center fs-4 fw-bold">Weather</span>
+                    <!--using offcanvas button to display more details -->
+                    <button class=" col-2 btn btn-secondary fs-5 fw-bold" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">+</button>
+
+                    <!-- offcanvas body for more  details -->
+                    <div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <h4 class="offcanvas-title text-center " id="offcanvasExampleLabel">Details:</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <hr>
+                        <div class="offcanvas-body text-start">
+                            <p class="fs-5 fw-bold ">City : <span id="dropCity" class="text-danger"></span></p>
+                            <p class="fs-5 fw-bold ">Country : <span id="dropCountry" class="text-danger"></span></p>
+                            <p class="fs-5 fw-bold ">Longitude : <span id="dropLat" class="text-danger"></span></p>
+                            <p class="fs-5 fw-bold ">Latitude : <span id="dropLon" class="text-danger"></span></p>
+                            <p class="fs-5 fw-bold ">Temperature : <span id="dropTemp" class="text-danger"></span></p>
+                            <p class="fs-5 fw-bold ">Weather : <span id="dropWeather" class="text-danger"></span></p>
+                            <p class="fs-5 fw-bold ">Humidity : <span id="dropHumidity" class="text-danger"></span></p>
+                            <p class="fs-5 fw-bold ">Wind : <span id="dropWind" class="text-danger"></span></p>       
+                        </div>
+                    </div>
+
+                    <!-- using dropdown button  to display more details-->
+                    <!-- <div class="col-2 dropdown">
+                        <button class="btn btn-secondary fs-5 fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                         +
+                        </button>
+                        <ul class=" dropdown-menu  text-dark">
+                            <li class="text-center fs-5 fw-bold">Details:</li>
+                            <hr>
+                            <li class="dropdown-item">City : <span id="dropCity"></span></li>
+                            <li class="dropdown-item">Country : <span id="dropCountry"></span></li>
+                            <li class="dropdown-item">Longitude : <span id="dropLat"></span></li>
+                            <li class="dropdown-item">Latitude : <span id="dropLon"></span></li>
+                            <li class="dropdown-item">Temperature : <span id="dropTemp"></span></li>
+                            <li class="dropdown-item">Weather : <span id="dropWeather"></span></li>
+                            <li class="dropdown-item">Humidity : <span id="dropHumidity"></span></li>
+                            <li class="dropdown-item">Wind : <span id="dropWind"></span></li>
+                        </ul>
+                    </div> -->
+                </div>
+
+                <span class="d-flex my-2">
+                    <input type="text" placeholder="Search Location" class="form-control" id="inpLocation">
+                    <i class="fa fa-search fs-5 my-3 text-dark" onclick="searchNewLocation()" style="margin-left: -2em;"></i>
+                </span>
+                <h3 class="mt-4" id="citybox">City Name</h3>
+                <p id="datebox">Date</p>
+                <h1 class="my-4" id="tempbox">Temperature</h1>
+                <hr class="col-3 mx-auto" style="border-bottom: 3px dashed white;">
+                <h4 class="mt-4" id="descriptionbox">Description</h4>
+                <h6 id="minmaxbox">min/max</h6>
+                <div class="row text-center mt-5 py-5 ">
+                    <div class="col 4">
+                        <small>min/max</small>
+                        <p>Today</p>
+                    </div>
+                    <div class="col 4">
+                        <small>min/max</small>
+                        <p>next</p>
+                    </div>
+                    <div class="col 4">
+                        <small>min/max</small>
+                        <p>next</p>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
     
-    <div id="disp" class="ms-5 text-white fw-bold "></div>
+    
+    
 
-
-    <script>
-        let myKey = "677dc62a3ff9227ae5d3bf923a99551c"
-
-        const weatherNow= ()=>{
-            navigator.geolocation.getCurrentPosition( async (position)=>{
-                let myLatitude = position.coords.latitude
-                let myLongitude = position.coords.longitude
-                let endpoint3 = `https://api.openweathermap.org/data/2.5/weather?lat=${myLatitude}&lon=${myLongitude}&appid=${myKey}&units=metric`
-
-                let myresponse = await fetch(endpoint3)
-                let myconvertedResponse = await  myresponse.json()
-                console.log(myconvertedResponse)
-                disp.innerHTML = `
-                    <h1>${myconvertedResponse.name}</h1>
-                    <h1>${myconvertedResponse.main.temp}<sup>0</sup>C</h1>
-                    <h1>${myconvertedResponse.weather[0].main}</h1>
-                    <h3>${myconvertedResponse.weather[0].description}</h3>
-                    <h1>${myconvertedResponse.timezone}</h1>   
-                 `
-            })
-        }
-
-        const getLocation = async()=> {
-            let endpoint4 = `https://api.openweathermap.org/data/2.5/weather?q=${userInp.value}&appid=${myKey}&units=metric`
-            let response = await fetch(endpoint4)
-            let convertedResponse = await response.json()
-            console.log(convertedResponse)
-                disp.innerHTML = `
-                    <h1>${convertedResponse.name}</h1>
-                    <h1>${convertedResponse.main.temp}<sup>0</sup>C</h1>
-                    <h1>${convertedResponse.weather[0].main}</h1>
-                    <h3>${convertedResponse.weather[0].description}</h3>
-                    <h1>${convertedResponse.timezone}</h1>   
-                 `
-                // navigator.geolocation.getCurrentPosition((position)=>{ })
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>
 

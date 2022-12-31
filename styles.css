@@ -1,25 +1,19 @@
 body{
-    height: 100vh;
-    background-image: url(./cloud1.gif);
-    background-position: center;
+    /* height: 120vh; */
+    background-image: url(./cloud1.jpg);
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
 }
-#box{
-    width: 50%;
-    border: 2px solid black;
-    margin: auto;
-    overflow: hidden;
+#box1{
+    background-image: url(./cloud1.jpg);
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: cover;
+    font-weight:bolder;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border:10px solid black;
 }
-@media screen and (max-width:800px) {
-    #box{
-        width: 90%;
-        
-    }
-}
-#mybtn1{
-    margin-left: -3.5em;
-}
-#disp{
-    margin-top: 10em;
+.top{
+    background-color: black;
 }

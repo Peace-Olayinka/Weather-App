@@ -19,7 +19,7 @@
                 <div class="row mt-3 px-3">
                     <span class=" col-10 text-center fs-4 fw-bold">Weather</span>
                     <!--using offcanvas button to display more details -->
-                    <button class=" col-2 btn btn-secondary fs-5 fw-bold" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">+</button>
+                    <button class=" col-2 btn btn-outline-white fs-5 fw-bold topbtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">+</button>
 
                     <!-- offcanvas body for more  details -->
                     <div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -66,24 +66,88 @@
                 </span>
                 <h3 class="mt-4" id="citybox">City Name</h3>
                 <p id="datebox">Date</p>
-                <h1 class="my-4" id="tempbox">Temperature</h1>
+                <h1 class="my-4 text-danger" id="tempbox">Temp.</h1>
                 <hr class="col-3 mx-auto" style="border-bottom: 3px dashed white;">
                 <h4 class="mt-4" id="descriptionbox">Description</h4>
                 <h6 id="minmaxbox">min/max</h6>
-                <div class="row text-center mt-5 py-5 ">
-                    <div class="col 4">
-                        <small>min/max</small>
-                        <p>Today</p>
+               
+                <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="true">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row text-center mt-5 py-5 ">
+                                <div class="col-3">
+                                    <div>
+                                        <i class="fa fa-cloud fs-3 text-warning" aria-hidden="true"></i>
+                                    </div>
+                                    <small id="currentDayTemp" class="text-danger" >temp</small>
+                                    <p id="currentDay">Today</p>
+                                </div>
+                                <div class="col-3">
+                                    <div>
+                                        <i class="fa fa-cloud fs-3" aria-hidden="true"></i>
+                                    </div>
+                                    <small>temp</small>
+                                    <p id="next1">next</p>
+                                </div>
+                                <div class="col-3">
+                                    <div>
+                                        <i class="fa fa-cloud fs-3" aria-hidden="true"></i>
+                                    </div>
+                                    <small>temp</small>
+                                    <p id="next2">next</p>
+                                </div>
+                                <div class="col-3">
+                                    <div>
+                                        <i class="fa fa-cloud fs-3" aria-hidden="true"></i>
+                                    </div>
+                                    <small>temp</small>
+                                    <p id="next3">next</p>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row text-center mt-5 py-5 ">
+                                <div class="col-3">
+                                    <div>
+                                        <i class="fa fa-cloud fs-3" aria-hidden="true"></i>
+                                    </div>
+                                    <small>temp</small>
+                                    <p id="next4">next</p>
+                                </div>
+                                <div class="col-3">
+                                    <div>
+                                        <i class="fa fa-cloud fs-3" aria-hidden="true"></i>
+                                    </div>
+                                    <small>temp</small>
+                                    <p id="next5">next</p>
+                                </div>
+                                <div class="col-3">
+                                    <div>
+                                        <i class="fa fa-cloud fs-3" aria-hidden="true"></i>
+                                    </div>
+                                    <small>temp</small>
+                                    <p id="next6">next</p>
+                                </div>
+                                <div class="col-3">
+                                    <div>
+                                        <i class="fa fa-cloud fs-3" aria-hidden="true"></i>
+                                    </div>
+                                    <small>temp</small>
+                                    <p id="next7">next</p>
+                                </div>
+                            </div> 
+                        </div>
                     </div>
-                    <div class="col 4">
-                        <small>min/max</small>
-                        <p>next</p>
-                    </div>
-                    <div class="col 4">
-                        <small>min/max</small>
-                        <p>next</p>
-                    </div>
-                </div> 
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon visually-hidden" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+                      <span class="carousel-control-next-icon visually-hidden" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>

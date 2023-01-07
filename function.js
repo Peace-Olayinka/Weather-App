@@ -1,5 +1,8 @@
 var myKey = "677dc62a3ff9227ae5d3bf923a99551c"
-var today = new Date().toDateString()
+var myDate = new Date()
+var today = myDate.toDateString()
+// myDate.setDate(myDate.getDate()+10) 
+// console.log(myDate.getDay())
 const getCurrentDetails=()=>{
     if (navigator.geolocation) {
         // window.navigator.geolocation.watchPosition()
@@ -17,6 +20,7 @@ const getCurrentDetails=()=>{
                 tempbox.innerHTML = `${responseFetchedConverted.main.temp}<sup>0</sup>c`
                 descriptionbox.innerHTML = `${responseFetchedConverted.weather[0].description}`
                 minmaxbox.innerHTML =`${responseFetchedConverted.main.temp_min}<sup>0</sup>c / ${responseFetchedConverted.main.temp_max}<sup>0</sup>c`
+                currentDayTemp.innerHTML =`${responseFetchedConverted.main.temp}<sup>0</sup>c`
 
                 // for more deteials in the dropdown section
                 dropCity.innerHTML = `${responseFetchedConverted.name}`
@@ -33,13 +37,60 @@ const getCurrentDetails=()=>{
             .catch((error)=>{
                 console.log(error)
             })
-        })
 
+        })
+        // forecast for weekdays
+        var weekdays =[]
+        var dayCode
+        var dayName
+        for (let index = 0; index <7; index++) {
+            myDate.setDate(myDate.getDate()+1) 
+            console.log(myDate.toDateString())
+            dayCode = myDate.getDay()
+            console.log(dayCode)
+            if (dayCode==0) {
+                dayName = "Sun."
+            }
+            if (dayCode==1) {
+                dayName = "Mon."
+            }
+            if (dayCode==2) {
+                dayName = "Tue."
+            }
+            if (dayCode==3) {
+                dayName= "Wed."
+            }
+            if (dayCode==4) {
+                dayName= "Thur."
+            }
+            if (dayCode==5) {
+                dayName = "Fri."
+            }
+            if (dayCode==6) {
+                dayName = "Sat."
+            }
+
+            let newDay ={
+                code:dayCode,
+                dayName:dayName
+            }   
+    
+            weekdays.push(newDay)
+        }
+        console.log(weekdays)
+        next1.innerHTML = `${weekdays[0].dayName}`
+        next2.innerHTML = `${weekdays[1].dayName}`
+        next3.innerHTML = `${weekdays[2].dayName}`
+        next4.innerHTML = `${weekdays[3].dayName}`
+        next5.innerHTML = `${weekdays[4].dayName}`
+        next6.innerHTML = `${weekdays[5].dayName}`
+        next7.innerHTML = `${weekdays[6].dayName}`     
+      
     }else{
         alert("Geolocation feature is not supported by your browser!")
     } 
 }
-// location search funcrion
+// location search function
 const searchNewLocation=()=>{
     let searchLocation = inpLocation.value
     if (inpLocation.value =="") {
@@ -57,6 +108,7 @@ const searchNewLocation=()=>{
             tempbox.innerHTML = `${searchRresponseFetchedConverted.main.temp}<sup>0</sup>c`
             descriptionbox.innerText = `${searchRresponseFetchedConverted.weather[0].description}`
             minmaxbox.innerHTML =`${searchRresponseFetchedConverted.main.temp_min}<sup>0</sup>c / ${searchRresponseFetchedConverted.main.temp_max}<sup>0</sup>c`
+            currentDayTemp.innerHTML = `${searchRresponseFetchedConverted.main.temp}<sup>0</sup>c`
     
             // for more deteials in the dropdown section
             dropCity.innerHTML = `${searchRresponseFetchedConverted.name}`
@@ -75,26 +127,3 @@ const searchNewLocation=()=>{
     }
     inpLocation.value=""
 }
-
-
-
-
-
-      
-
-
-
-//const myFunc=()=>{
-    // loading page : we could use bootsrap spinner to display loading gif
-    // loadingDiv.innerHTML = "....Loading"
-    // fetch(endpoint2)
-    // .then((response)=>response.json())
-    // .then((convertedResponse)=>{
-    //     console.log(convertedResponse)
-    //     loadingDiv.innerHTML = ""
-    // })
-    // .catch() is used to catch error
-    // .catch((error)=>{
-    //     console.log(error)
-    // })
-//}
